@@ -1,6 +1,7 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose, { Schema, Document, ObjectId } from 'mongoose';
 
 export interface IGroup extends Document {
+  _id: mongoose.Types.ObjectId;
   name: string;
   flag: string;
   mp: number;
@@ -15,6 +16,7 @@ export interface IGroup extends Document {
 }
 
 const groupSchema: Schema = new Schema({
+  _id: { type: Schema.Types.ObjectId, auto: true },
   name: { type: String, required: true },
   flag: { type: String, required: true },
   mp: { type: Number, default: 0 },
@@ -28,6 +30,6 @@ const groupSchema: Schema = new Schema({
   group: { type: String, required: true },
 });
 
-const Group = mongoose.model<IGroup>('Groups', groupSchema);
+const Group = mongoose.model<IGroup>('Group', groupSchema, 'Group');
 
 export default Group;

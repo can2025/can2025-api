@@ -1,14 +1,30 @@
 import express from 'express';
 import mongoose from 'mongoose';
+import cors from 'cors';
 import groupsRoutes from './routes/groups';
+import matchesRoutes from './routes/matches';
+import newsRoutes from './routes/news';
+import dotenv from 'dotenv';
+
+// Load environment-specific .env file
+dotenv.config({
+  path: process.env.NODE_ENV === 'production' ? '.env.production' : '.env.development',
+});
+
+console.log('NODE_ENV:', process.env.NODE_ENV);
+console.log('MONGODB_URI:', process.env.MONGODB_URI);
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const MONGODB_URI = 'mongodb://localhost:27017/can2025';
+const MONGODB_URI = process.env.MONGODB_URI || '';
+//const MONGODB_URI ="mongodb://localhost:27017/can2025"
 
+console.log('Connecting to MongoDB at:', MONGODB_URI);
+
+app.use(cors());
 app.use(express.json());
 
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(MONGODB_URI)
   .then(() => {
     console.log('Connected to MongoDB');
     app.listen(PORT, () => {
@@ -20,3 +36,10 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true 
   });
 
 app.use('/api/groups', groupsRoutes);
+app.use('/api/matches', matchesRoutes);
+app.use('/api/news', newsRoutes);
+
+app.get('/', (req, res) => {
+  res.send('Welcome to the CAN 2025 API');
+});
+

@@ -6,20 +6,26 @@
   "scripts": {
     "start": "ts-node src/app.ts",
     "dev": "ts-node-dev src/app.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "start:dev": "env-cmd -f .env.development ts-node src/app.ts",
+    "start:prod": "env-cmd -f .env.production ts-node src/app.ts"
   },
   "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
     "express": "^4.17.1",
-    "mongoose": "^5.10.9"
+    "mongoose": "^8.16.5"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "@types/jest": "^30.0.0",
+    "env-cmd": "^10.1.0",
     "jest": "^30.0.4",
     "ts-jest": "^29.4.0",
-    "ts-node": "^9.1.1",
+    "ts-node": "^10.9.2",
     "ts-node-dev": "^1.0.0",
-    "typescript": "^4.1.2"
+    "typescript": "^5.8.3"
   },
   "engines": {
     "node": ">=12.0.0"

@@ -1,6 +1,7 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
 export interface IMatch extends Document {
+  _id : mongoose.Types.ObjectId;
   id: number;
   homeTeam: string;
   awayTeam: string;
@@ -13,9 +14,12 @@ export interface IMatch extends Document {
   group: string;
   status: string;
   channel: string;
+  scoreHomeTeam : Number;
+  scoreAwayTeam : Number;
 }
 
 const matchSchema: Schema = new Schema({
+  _id : { type: Schema.Types.ObjectId, auto: true },
   id: { type: Number, required: true },
   homeTeam: { type: String, required: true },
   awayTeam: { type: String, required: true },
@@ -28,8 +32,10 @@ const matchSchema: Schema = new Schema({
   group: { type: String, required: true },
   status: { type: String, required: true },
   channel: { type: String, required: true },
+  scoreHomeTeam : { type: Number, default: 0 },
+  scoreAwayTeam : { type: Number, default: 0 },
 });
 
-const Match = mongoose.model<IMatch>('Matches', matchSchema);
+const Match = mongoose.model<IMatch>('Match', matchSchema,'Match');
 
 export default Match;
