@@ -1,6 +1,5 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import cors from 'cors';
 import groupsRoutes from './routes/groups';
 import matchesRoutes from './routes/matches';
 import newsRoutes from './routes/news';
@@ -20,8 +19,6 @@ const MONGODB_URI = process.env.MONGODB_URI || '';
 //const MONGODB_URI ="mongodb://localhost:27017/can2025"
 
 console.log('Connecting to MongoDB at:', MONGODB_URI);
-
-app.use(cors());
 app.use(express.json());
 
 mongoose.connect(MONGODB_URI)
