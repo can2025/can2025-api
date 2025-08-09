@@ -6,11 +6,12 @@ import newsRoutes from './routes/news';
 import * as dotenv from 'dotenv';
 
 // Load environment-specific .env file
-dotenv.config({
-  path: process.env.NODE_ENV === 'production' ? '.env.production' : '.env.development',
-});
 
 console.log('NODE_ENV:', process.env.NODE_ENV);
+if (process.env.NODE_ENV !== 'production') {
+  dotenv.config({ path: '.env.development' });
+}
+
 console.log('MONGODB_URI:', process.env.MONGODB_URI);
 
 const app = express();
