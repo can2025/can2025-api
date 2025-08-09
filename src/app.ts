@@ -5,6 +5,8 @@ import matchesRoutes from './routes/matches';
 import newsRoutes from './routes/news';
 import * as dotenv from 'dotenv';
 
+require('dotenv').config();
+
 // Load environment-specific .env file
 
 if (process.env.NODE_ENV !== 'development') {
