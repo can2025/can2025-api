@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import groupsRoutes from './routes/groups';
 import matchesRoutes from './routes/matches';
 import newsRoutes from './routes/news';
-import dotenv from 'dotenv';
+import * as dotenv from 'dotenv';
 
 // Load environment-specific .env file
 dotenv.config({
