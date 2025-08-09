@@ -7,9 +7,8 @@ import * as dotenv from 'dotenv';
 
 // Load environment-specific .env file
 
-console.log('NODE_ENV:', process.env.NODE_ENV);
-if (process.env.NODE_ENV !== 'production') {
-  dotenv.config({ path: '.env.development' });
+if (process.env.NODE_ENV !== 'development') {
+  dotenv.config({ path: '.env.production' });
 }
 
 console.log('MONGODB_URI:', process.env.MONGODB_URI);
