@@ -1,5 +1,6 @@
 import * as dotenv from 'dotenv';
 import express from 'express';
+import cors from 'cors';
 import mongoose from 'mongoose';
 import groupsRoutes from './routes/groups';
 import matchesRoutes from './routes/matches';
@@ -23,6 +24,7 @@ const MONGODB_URI = process.env.MONGODB_URI || '';
 
 console.log('Connecting to MongoDB at:', MONGODB_URI);
 app.use(express.json());
+app.use(cors({ origin: process.env.FRONTEND_URL }));
 
 mongoose.connect(MONGODB_URI)
   .then(() => {
