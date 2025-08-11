@@ -17,6 +17,7 @@
     "mongoose": "^8.16.5"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "@types/jest": "^30.0.0",
     "env-cmd": "^10.1.0",

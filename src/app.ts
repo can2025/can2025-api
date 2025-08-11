@@ -23,8 +23,26 @@ const MONGODB_URI = process.env.MONGODB_URI || '';
 //const MONGODB_URI ="mongodb://localhost:27017/can2025"
 
 console.log('Connecting to MongoDB at:', MONGODB_URI);
+
+// Split env list into an array
+const allowedOrigins = (process.env.ALLOWED_ORIGINS || '').split(',').map(origin => origin.trim()).filter(Boolean);
+
 app.use(express.json());
-app.use(cors({ origin: process.env.FRONTEND_URL }));
+app.use(cors({
+  origin: (origin, callback) => {
+    // Allow requests with no origin (mobile apps, Postman, server-to-server)
+    if (!origin) {
+      return callback(null, true);
+    }
+
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    return callback(new Error('Not allowed by CORS'));
+  },
+  credentials: true
+}));
 
 mongoose.connect(MONGODB_URI)
   .then(() => {
