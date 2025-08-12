@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 import groupsRoutes from './routes/groups';
 import matchesRoutes from './routes/matches';
 import newsRoutes from './routes/news';
+import citiesRoutes from './routes/cites';
 
 
 // Load default .env
@@ -32,10 +33,12 @@ app.use(cors({
   origin: (origin, callback) => {
     // Allow requests with no origin (mobile apps, Postman, server-to-server)
     if (!origin) {
+      console.log('Allow requests with no origin (mobile apps, Postman, server-to-server)');
       return callback(null, true);
     }
 
     if (allowedOrigins.includes(origin)) {
+      console.log(`CORS request from allowed origin: ${origin}`);
       return callback(null, true);
     }
 
@@ -58,6 +61,7 @@ mongoose.connect(MONGODB_URI)
 app.use('/api/groups', groupsRoutes);
 app.use('/api/matches', matchesRoutes);
 app.use('/api/news', newsRoutes);
+app.use('/api/cities', citiesRoutes);
 
 app.get('/', (req, res) => {
   res.send('Welcome to the CAN 2025 API');
