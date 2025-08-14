@@ -21,9 +21,6 @@ console.log('MONGODB_URI:', process.env.MONGODB_URI);
 const app = express();
 const PORT = process.env.PORT || 5000;
 const MONGODB_URI = process.env.MONGODB_URI || '';
-//const MONGODB_URI ="mongodb://localhost:27017/can2025"
-
-console.log('Connecting to MongoDB at:', MONGODB_URI);
 
 // Split env list into an array
 const allowedOrigins = (process.env.ALLOWED_ORIGINS || '').split(',').map(origin => origin.trim()).filter(Boolean);
@@ -33,12 +30,12 @@ app.use(cors({
   origin: (origin, callback) => {
     // Allow requests with no origin (mobile apps, Postman, server-to-server)
     if (!origin) {
-      console.log('Allow requests with no origin (mobile apps, Postman, server-to-server)');
+     // console.log('Allow requests with no origin (mobile apps, Postman, server-to-server)');
       return callback(null, true);
     }
 
     if (allowedOrigins.includes(origin)) {
-      console.log(`CORS request from allowed origin: ${origin}`);
+     // console.log(`CORS request from allowed origin: ${origin}`);
       return callback(null, true);
     }
 
@@ -49,9 +46,8 @@ app.use(cors({
 
 mongoose.connect(MONGODB_URI)
   .then(() => {
-    console.log('Connected to MongoDB');
+    console.log('Connected to Database');
     app.listen(PORT, () => {
-      console.log(`Server is running on http://localhost:${PORT}`);
     });
   })
   .catch(err => {
@@ -62,7 +58,7 @@ mongoose.connect(MONGODB_URI)
   setInterval(async () => {
     try {
       await mongoose.connection.db?.admin().ping();
-      console.log("✅ Pinged MongoDB Atlas to keep connection alive.");
+     // console.log("✅ Pinged MongoDB Atlas to keep connection alive.");
     } catch (err) {
       console.error("❌ Ping failed:", err);
     }
