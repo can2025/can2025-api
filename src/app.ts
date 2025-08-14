@@ -58,6 +58,17 @@ mongoose.connect(MONGODB_URI)
     console.error('MongoDB connection error:', err);
   });
 
+// ⏰ Keep-alive ping every 5 minutes
+  setInterval(async () => {
+    try {
+      await mongoose.connection.db?.admin().ping();
+      console.log("✅ Pinged MongoDB Atlas to keep connection alive.");
+    } catch (err) {
+      console.error("❌ Ping failed:", err);
+    }
+  }, 5 * 60 * 1000);
+  
+  
 app.use('/api/groups', groupsRoutes);
 app.use('/api/matches', matchesRoutes);
 app.use('/api/news', newsRoutes);
