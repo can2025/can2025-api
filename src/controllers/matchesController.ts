@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { getUpcomingMatches } from '../services/matchesService';
+import { getUpcomingMatches} from '../services/matchesService';
 import Match from '../models/match';
 
 class MatchesController {
@@ -19,6 +19,7 @@ class MatchesController {
       res.status(500).json({ message: 'Error retrieving upcoming matches', error });
     }
   }
+
 }
 
 export default new MatchesController();
