@@ -72,3 +72,29 @@ export async function getUpcomingMatches() {
   return futureMatches.filter(match => uniqueDates.includes(match.date_en));
 }
 
+export async function getKnockoutMatches() {
+  // Fetch all knockout matches
+  const knockoutMatches = await Match.find({
+    group_en: { $in: ["8th final", "Quarter final", "Semi final", "3rd Place", "final"] }
+  }).lean();
+
+  // Sort matches by date and time
+  knockoutMatches.sort((a, b) => {
+    const dateA = parseMatchDateTime(a.date_en, a.time);
+    const dateB = parseMatchDateTime(b.date_en, b.time);
+    return dateA.getTime() - dateB.getTime();
+  });
+
+  // Group matches by group_en
+  const groupedMatches = knockoutMatches.reduce((acc, match) => {
+    const group = match.group_en;
+    if (!acc[group]) {
+      acc[group] = [];
+    }
+    acc[group].push(match);
+    return acc;
+  }, {} as Record<string, typeof knockoutMatches>);
+
+  return groupedMatches;
+}
+
